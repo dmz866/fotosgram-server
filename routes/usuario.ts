@@ -119,4 +119,14 @@ userRoutes.post('/update', verificarToken, (request: any, response: Response) =>
     });
 });
 
+userRoutes.get('/', verificarToken, (request: any, response: Response) => 
+{
+    const usuario = request.usuario;
+
+    return response.json({
+        ok: true,
+        usuario
+    });
+});
+
 export default userRoutes;

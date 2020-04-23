@@ -1,7 +1,7 @@
 import { IFileUpload } from './../interfaces/interfaces';
 import { Post } from './../models/post.model';
 import { verificarToken } from './../middlewares/autenticacion';
-import { Router, Response } from "express";
+import { Router, Response, Request } from "express";
 import FileSystem from '../classes/file-system';
 
 const postRoutes = Router();
@@ -74,6 +74,15 @@ postRoutes.post('/upload', verificarToken, async (request: any, response: Respon
         ok: true,
         file: file.mimetype
     });
+});
+
+postRoutes.get('/imagen/:userid/:img', (request: any, response: Response) => 
+{
+    const userId = request.params.userid;
+    const img = request.params.img;
+    const pathFoto = fileSystem.getImagenUrl(userId, img);
+
+    return response.sendFile(pathFoto);
 });
 
 export default postRoutes;

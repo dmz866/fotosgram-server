@@ -4,6 +4,17 @@ import fs from 'fs';
 import uniqid from 'uniqid';
 
 export default class FileSystem {
+    
+    getImagenUrl(userId: string, img: string) {
+        const pathPosts = path.resolve(__dirname, '../uploads/', userId, 'posts', img);
+
+        if(!fs.existsSync(pathPosts)) {
+            return path.resolve(__dirname, '../assets/400x250.jpg');
+        }
+
+        return pathPosts; 
+    }
+
     moverImagenesDeTempAPost(userId: string) {
         const pathTemp = path.resolve(__dirname, '../uploads/', userId, 'temp');
         const pathPosts = path.resolve(__dirname, '../uploads/', userId, 'posts');
